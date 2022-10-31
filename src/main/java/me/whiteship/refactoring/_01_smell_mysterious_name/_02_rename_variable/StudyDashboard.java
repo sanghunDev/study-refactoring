@@ -24,11 +24,11 @@ public class StudyDashboard {
         GitHub gitHub = GitHub.connect();
         GHRepository repository = gitHub.getRepository("whiteship/live-study");
         GHIssue issue = repository.getIssue(30);
-
-        List<GHIssueComment> comments = issue.getComments();
-        for (GHIssueComment comment : comments) {
-            usernames.add(comment.getUserName());
-            this.reviews.add(comment.getBody());
+        //reviews를 읽어오는 메서드기 때문에 reviews로 변경
+        List<GHIssueComment> reviews = issue.getComments();
+        for (GHIssueComment review : reviews) {
+            usernames.add(review.getUserName());
+            this.reviews.add(review.getBody());
         }
     }
 
@@ -43,7 +43,8 @@ public class StudyDashboard {
     public static void main(String[] args) throws IOException {
         StudyDashboard studyDashboard = new StudyDashboard();
         studyDashboard.loadReviews();
-        studyDashboard.getUsernames().forEach(name -> System.out.println(name));
-        studyDashboard.getReviews().forEach(review -> System.out.println(review));
+        // 메서드 참조로 변경하면 변수 사용 불필요
+        studyDashboard.getUsernames().forEach(System.out::println);
+        studyDashboard.getReviews().forEach(System.out::println);
     }
 }
