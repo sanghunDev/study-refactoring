@@ -43,8 +43,4 @@ public class StudyDashboard {
         studyDashboard.printReviewers();
         studyDashboard.printParticipants(15);
     }
-
-
-
-
 }
