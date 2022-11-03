@@ -46,16 +46,7 @@ public class StudyDashboard {
                         List<GHIssueComment> comments = issue.getComments();
 
                         for (GHIssueComment comment : comments) {
-                            String username = comment.getUserName();
-                            boolean isNewUser = participants.stream().noneMatch(p -> p.username().equals(username));
-                            Participant participant = null;
-                            if (isNewUser) {
-                                participant = new Participant(username);
-                                participants.add(participant);
-                            } else {
-                                participant = participants.stream().filter(p -> p.username().equals(username)).findFirst().orElseThrow();
-                            }
-
+                            Participant participant = findParticipant(comment.getUserName(), participants);
                             participant.setHomeworkDone(eventId);
                         }
 
@@ -81,6 +72,18 @@ public class StudyDashboard {
                 writer.print(markdownForHomework);
             });
         }
+    }
+
+    private Participant findParticipant(String username, List<Participant> participants) {
+        boolean isNewUser = participants.stream().noneMatch(p -> p.username().equals(username));
+        Participant participant = null;
+        if (isNewUser) {
+            participant = new Participant(username);
+            participants.add(participant);
+        } else {
+            participant = participants.stream().filter(p -> p.username().equals(username)).findFirst().orElseThrow();
+        }
+        return participant;
     }
 
     private String getMarkdownForParticipant(Participant participant) {
