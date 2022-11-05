@@ -34,6 +34,13 @@ public class StudyDashboard {
     private void print() throws IOException, InterruptedException {
         GHRepository ghRepository = getGhRepository();
 
+        checkGithubIssues(ghRepository);
+
+        new StudyPrinter(this.totalNumberOfEvents, this.participants).execute();
+        printFirstParticipants();
+    }
+
+    private void checkGithubIssues(GHRepository ghRepository) throws InterruptedException {
         ExecutorService service = Executors.newFixedThreadPool(8);
         CountDownLatch latch = new CountDownLatch(totalNumberOfEvents);
 
@@ -57,9 +64,6 @@ public class StudyDashboard {
 
         latch.await();
         service.shutdown();
-
-        new StudyPrinter(this.totalNumberOfEvents, this.participants).execute();
-        printFirstParticipants();
     }
 
     private Participant findFirst(List<GHIssueComment> comments) throws IOException {
