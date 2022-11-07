@@ -10,16 +10,14 @@ public class Billing {
         this.customer = customer;
         this.emailGateway = emailGateway;
     }
-
-    public double getTotalOutstandingAndSendBill() {
-        double result = customer.getInvoices().stream()
+    //값만 조회 가능하게 변경
+    public double totalOutStanding() {
+        return customer.getInvoices().stream()
                 .map(Invoice::getAmount)
                 .reduce((double) 0, Double::sum);
-        sendBill();
-        return result;
     }
-
-    private void sendBill() {
+    // bill을 보내고 싶다면 sendBill 호출 (조회와 변경의 용도 분리)
+    public void sendBill() {
         emailGateway.send(formatBill(customer));
     }
 
