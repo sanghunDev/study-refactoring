@@ -1,5 +1,8 @@
 package me.whiteship.refactoring._07_divergent_change._25_move_function;
 
+/**
+ *  어떤 함수를 볼때 다른 데이터를 참조하는 데이터가 많으면 해당 함수를 그쪽으로 옮겨주면 좋다
+ */
 public class Account {
 
     private int daysOverdrawn;
@@ -14,7 +17,7 @@ public class Account {
     public double getBankCharge() {
         double result = 4.5;
         if (this.daysOverdrawn() > 0) {
-            result += this.overdraftCharge();
+            result += this.type.overdraftCharge(this.daysOverdrawn);
         }
         return result;
     }
@@ -23,16 +26,4 @@ public class Account {
         return this.daysOverdrawn;
     }
 
-    private double overdraftCharge() {
-        if (this.type.isPremium()) {
-            final int baseCharge = 10;
-            if (this.daysOverdrawn <= 7) {
-                return baseCharge;
-            } else {
-                return baseCharge + (this.daysOverdrawn - 7) * 0.85;
-            }
-        } else {
-            return this.daysOverdrawn * 1.75;
-        }
-    }
 }
