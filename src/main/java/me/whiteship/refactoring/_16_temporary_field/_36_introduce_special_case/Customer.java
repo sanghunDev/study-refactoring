@@ -37,4 +37,9 @@ public class Customer {
     public void setPaymentHistory(PaymentHistory paymentHistory) {
         this.paymentHistory = paymentHistory;
     }
+
+    //customer를 참조하기 때문에 메소드 위임
+    public boolean isUnknown() {
+        return false;
+    }
 }
