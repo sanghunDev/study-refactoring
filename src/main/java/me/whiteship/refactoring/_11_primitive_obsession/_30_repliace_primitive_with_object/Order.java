@@ -8,6 +8,9 @@ public class Order {
         this.priority = priority;
     }
 
+    public Order(Priority priority) {
+    }
+
     public String getPriority() {
         return priority;
     }
