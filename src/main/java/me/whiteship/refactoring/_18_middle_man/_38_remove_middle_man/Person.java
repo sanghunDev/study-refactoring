@@ -11,7 +11,12 @@ public class Person {
         this.department = department;
     }
 
-    public Person getManager() {
+    //department에 대한 중재자
+    /*public Person getManager() {
         return this.department.getManager();
+    }*/
+
+    public Department getDepartment() {
+        return department;
     }
 }

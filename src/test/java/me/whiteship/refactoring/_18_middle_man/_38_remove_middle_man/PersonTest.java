@@ -10,7 +10,9 @@ class PersonTest {
     void getManager() {
         Person nick = new Person("nick", null);
         Person keesun = new Person("keesun", new Department(nick));
-        assertEquals(nick, keesun.getManager());
+        //assertEquals(nick, keesun.getManager());
+        //department에서 바로 접근 가능 (꼭 이게 정답이 아닌 캡슐화 스코프는 선택)
+        assertEquals(nick, keesun.getDepartment().getManager());
     }
 
 }
